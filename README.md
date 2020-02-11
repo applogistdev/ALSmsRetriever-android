@@ -44,7 +44,7 @@ Add onActivityResult
 
 ## Usage with SMS Retriever API (https://developers.google.com/identity/sms-retriever/overview)
 
-Create your Debug or Release signature with AppSignatureHelper (IMPORTANT: When you release at Google Play with Google App Signing this Release signature won't work.)
+Create your Debug or Release signature with [AppSignatureHelper](https://github.com/applogistdev/ALSmsRetriever-android/blob/master/app/src/main/java/com/applogist/alsmsretriever_sample/AppSignatureHelper.kt) (IMPORTANT: When you release at Google Play with Google App Signing this Release signature won't work.)
 
 ```kotlin
 AppSignatureHelper(this).appSignatures.toString()
