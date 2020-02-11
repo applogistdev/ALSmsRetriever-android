@@ -41,3 +41,31 @@ Add onActivityResult
         super.onActivityResult(requestCode, resultCode, data)
     }
 ```
+
+## Usage with SMS Retriever API (https://developers.google.com/identity/sms-retriever/overview)
+
+Create your Debug or Release signature with AppSignatureHelper (IMPORTANT: When you release at Google Play with Google App Signing this Release signature won't work.)
+
+```kotlin
+AppSignatureHelper(this).appSignatures.toString()
+```
+
+You must send your message with this signature. Sample: "Yumm! Pie à la Android mode! 123456 1Ouzi0b+Kxq"
+
+Register your listener
+
+```kotlin
+        OneTapSmsReceiver.instance?.setLifeCycleOwner(this,this, object :
+            OneTapSmsReceiver.OneTapSmsVerificationListener{
+            override fun onSuccess(message: String) {
+                Log.e("onSuccess", message)
+            }
+
+            override fun onFailure(errorCode: Int) {
+                Log.e("onFailure", errorCode.toString())
+            }
+        })
+```
+
+## Get Google Play Release Hash
+https://stackoverflow.com/questions/51365778/how-to-generate-11-char-hash-key-for-sms-retriever-with-google-app-signing

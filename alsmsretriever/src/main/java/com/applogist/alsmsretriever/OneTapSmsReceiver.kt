@@ -20,6 +20,11 @@ import com.google.android.gms.common.api.Status
 *  Copyright © 2020 Mustafa Ürgüplüoğlu. All rights reserved.
 */
 
+interface OneTapSmsListener {
+    fun onSuccess(message: String)
+    fun onFailure(errorCode: Int)
+}
+
 class OneTapSmsReceiver : BroadcastReceiver(), LifecycleObserver {
 
     companion object {
@@ -35,22 +40,17 @@ class OneTapSmsReceiver : BroadcastReceiver(), LifecycleObserver {
         const val ERROR_INITIALIZE_FAILED = 99
     }
 
-    interface OneTapSmsVerificationListener {
-        fun onSuccess(message: String)
-        fun onFailure(errorCode: Int)
-    }
-
     private lateinit var activity: Activity
     private lateinit var lifecycleOwner: LifecycleOwner
-    private lateinit var listener: OneTapSmsVerificationListener
+    private lateinit var listener: OneTapSmsListener
 
     /** SMS from in contact list person not will be received
      * @param phoneNumber listen SMS only from this phone number (optional)
      */
-    fun setLifeCycleOwner(
+    fun start(
         activity: Activity,
         lifecycleOwner: LifecycleOwner,
-        listener: OneTapSmsVerificationListener,
+        listener: OneTapSmsListener,
         phoneNumber : String? = null
     ) {
         Log.e("OneTapSmsVerification", "setLifeCycleOwner")
@@ -107,9 +107,7 @@ class OneTapSmsReceiver : BroadcastReceiver(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        instance?.let {
-            activity.application?.unregisterReceiver(it)
-        }
+        activity.application?.unregisterReceiver(instance)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
