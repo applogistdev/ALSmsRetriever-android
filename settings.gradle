@@ -1,0 +1,2 @@
+include ':app', ':alsmsretriever'
+rootProject.name='ALSmsRetriever'
