@@ -21,10 +21,10 @@ dependencies {
 Register your listener
 
 ```kotlin
-        OneTapSmsReceiver.instance?.setLifeCycleOwner(this,this, object :
-            OneTapSmsReceiver.OneTapSmsVerificationListener{
+        OneTapSmsReceiver.instance?.start(this,this, object :
+            OneTapSmsListener {
             override fun onSuccess(message: String) {
-                Log.e("onSuccess", message)
+                Log.d("onSuccess", message)
             }
 
             override fun onFailure(errorCode: Int) {
@@ -55,15 +55,15 @@ You must send your message with this signature. Sample: "Yumm! Pie à la Android
 Register your listener
 
 ```kotlin
-        OneTapSmsReceiver.instance?.setLifeCycleOwner(this,this, object :
-            OneTapSmsReceiver.OneTapSmsVerificationListener{
-            override fun onSuccess(message: String) {
-                Log.e("onSuccess", message)
+        SmsRetrieverReceiver.instance?.start(this,this, object : SmsRetrieverListener{
+            override fun onReceive(message: String) {
+                Log.d("message", message)
             }
 
             override fun onFailure(errorCode: Int) {
                 Log.e("onFailure", errorCode.toString())
             }
+
         })
 ```
 
