@@ -53,19 +53,15 @@ class OneTapSmsReceiver : BroadcastReceiver(), LifecycleObserver {
         listener: OneTapSmsListener,
         phoneNumber : String? = null
     ) {
-        Log.e("OneTapSmsVerification", "setLifeCycleOwner")
         this.activity = activity
         this.lifecycleOwner = lifecycleOwner
         this.listener = listener
         lifecycleOwner.lifecycle.addObserver(instance!!)
 
-        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        activity.registerReceiver(instance, intentFilter)
-
         SmsRetriever.getClient(activity).also {
             it.startSmsUserConsent(phoneNumber)
                 .addOnSuccessListener {
-                    Log.e("TAG", "LISTENING_SUCCESS")
+                    Log.d("OneTapSmsReceiver", "LISTENING_SUCCESS")
                 }
                 .addOnFailureListener {
                     listener.onFailure(ERROR_INITIALIZE_FAILED)
@@ -105,17 +101,14 @@ class OneTapSmsReceiver : BroadcastReceiver(), LifecycleObserver {
         }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
-        activity.application?.unregisterReceiver(instance)
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate() {
+        activity.registerReceiver(instance, IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION))
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        activity.application?.registerReceiver(
-            instance,
-            IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-        )
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy() {
+        activity.unregisterReceiver(instance)
     }
 
     fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -64,13 +63,13 @@ class SmsRetrieverReceiver : BroadcastReceiver(), LifecycleObserver {
         }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
-        activity.application?.unregisterReceiver(instance)
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate() {
+        activity.registerReceiver(instance, IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION))
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        activity.application?.registerReceiver(instance, IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION))
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy() {
+        activity.unregisterReceiver(instance)
     }
 }
