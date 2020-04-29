@@ -1,6 +1,18 @@
 
 # ALSmsRetriever
 
+## Important
+
+A message triggers the broadcast only if it meets these criteria:
+
+ - The message contains a 4-10 character alphanumeric string with at least one number.
+ 
+ - The message was sent by a phone number that's not in the user's contacts.
+ 
+ - If you specified the sender's phone number, the message was sent by that number.
+ 
+ Sample message :   **Your verification code is 1234**
+
 ## Installation
 [![](https://jitpack.io/v/applogistdev/ALSmsRetriever-android.svg)](https://jitpack.io/#applogistdev/ALSmsRetriever-android)
 ```gradle
