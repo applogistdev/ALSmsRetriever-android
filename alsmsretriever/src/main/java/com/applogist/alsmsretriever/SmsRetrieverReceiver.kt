@@ -49,7 +49,7 @@ class SmsRetrieverReceiver : BroadcastReceiver(), LifecycleObserver {
     }
 
     override fun onReceive(context: Context, intent: Intent?) {
-        if(intent != null && SmsRetriever.SMS_RETRIEVED_ACTION == intent.action){
+        if (intent != null && SmsRetriever.SMS_RETRIEVED_ACTION == intent.action) {
             val status = intent.extras!!.get(SmsRetriever.EXTRA_STATUS) as Status
             when (status.statusCode) {
                 CommonStatusCodes.SUCCESS -> {

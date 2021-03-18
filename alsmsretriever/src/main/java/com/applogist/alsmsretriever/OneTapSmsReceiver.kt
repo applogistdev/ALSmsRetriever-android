@@ -51,7 +51,7 @@ class OneTapSmsReceiver : BroadcastReceiver(), LifecycleObserver {
         activity: Activity,
         lifecycleOwner: LifecycleOwner,
         listener: OneTapSmsListener,
-        phoneNumber : String? = null
+        phoneNumber: String? = null
     ) {
         this.activity = activity
         this.lifecycleOwner = lifecycleOwner
@@ -113,11 +113,12 @@ class OneTapSmsReceiver : BroadcastReceiver(), LifecycleObserver {
 
     fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if ((requestCode == REQUEST_CODE_ONE_TAP) && (resultCode == Activity.RESULT_OK)
-            && (data != null)) {
+            && (data != null)
+        ) {
             val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
-            if(message != null){
+            if (message != null) {
                 listener.onSuccess(message)
-            }else{
+            } else {
                 listener.onFailure(ERROR_INTENT_NULL)
             }
         }

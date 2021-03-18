@@ -26,7 +26,7 @@ class SmsRetrieverActivity : AppCompatActivity() {
         Log.e("Signatures", AppSignatureHelper(this).appSignatures.toString())
 
 
-        SmsRetrieverReceiver.instance?.start(this,this, object : SmsRetrieverListener{
+        SmsRetrieverReceiver.instance?.start(this, this, object : SmsRetrieverListener {
             override fun onReceive(message: String) {
                 Log.e("message", message)
                 helloTextView?.text = message
@@ -40,7 +40,7 @@ class SmsRetrieverActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        OneTapSmsReceiver.instance?.handleOnActivityResult(requestCode,resultCode,data)
+        OneTapSmsReceiver.instance?.handleOnActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 }
