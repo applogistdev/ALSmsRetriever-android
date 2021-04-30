@@ -1,5 +1,6 @@
 package com.applogist.alsmsretriever
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -29,6 +30,7 @@ class OneTapSmsReceiver : BroadcastReceiver(), LifecycleObserver {
 
     companion object {
 
+        @SuppressLint("StaticFieldLeak")
         var instance: OneTapSmsReceiver? = null
             get() {
                 if (field == null) field = OneTapSmsReceiver()

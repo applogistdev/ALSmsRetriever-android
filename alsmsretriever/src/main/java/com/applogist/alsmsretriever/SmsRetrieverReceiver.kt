@@ -1,5 +1,6 @@
 package com.applogist.alsmsretriever
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -27,6 +28,7 @@ interface SmsRetrieverListener {
 class SmsRetrieverReceiver : BroadcastReceiver(), LifecycleObserver {
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         var instance: SmsRetrieverReceiver? = null
             get() {
                 if (field == null) field = SmsRetrieverReceiver()
